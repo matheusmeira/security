@@ -17,7 +17,6 @@ class BreakPassword:
         found = False
         while not found:
             passwordHash = self.getPassword()
-            self.passwordFound = passwordHash
             found = self.comparePassword(passwordHash)
         print(self.passwordFound)
 
@@ -36,7 +35,8 @@ class BreakPassword:
             controll = self.onCheckPasswordInSet(password)
             if not controll:
                 self.setOfPassword.add(password)
-        return str(sha256(password.encode('ascii')).hexdigest())
+        self.passwordFound = password
+        return str(md5(password.encode('ascii')).hexdigest())
 
     def onCheckPasswordInSet(self, generatedPassword):
         return generatedPassword in self.setOfPassword
@@ -57,7 +57,7 @@ class BreakPassword:
 
 
 if __name__ == '__main__':
-    password = '5e816e8895fb2395ea89de9ada2ced74795d3df132f4b37e2ad7df268c553555'
-    defaultProbabilities = [0.3333333333333333, 0.3333333333333333, 0.3333333333333333, 0.0, 0.0, 0.0]
+    password = 'ea05adc80b65cecb6ea3a3034602831c'
+    defaultProbabilities = [0.2, 0.8, 0.0, 0.0, 0.0, 0.0]
     objBreakPassword = BreakPassword(password, defaultProbabilities)
     objBreakPassword.passwordBroken()
